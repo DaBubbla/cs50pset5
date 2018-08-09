@@ -2,8 +2,11 @@
 
 #include <stdbool.h>
 #include <stdio.h>
+
+#include "check.h"
 #include "dictionary.h"
 #include "speller.c"
+
 
 // Returns true if word is in dictionary else false
 bool check(const char *word)
@@ -18,7 +21,8 @@ bool check(const char *word)
 bool load(const char *dictionary)
 {
     char *dictfile = "dictionary.h";
-    //OPEN INPUT FILE  mmap??
+
+    //OPEN INPUT FILE
     FILE *inptr = fopen(dictfile, "r");
 
     if (dictfile == NULL)
@@ -27,7 +31,6 @@ bool load(const char *dictionary)
         return false;
         fclose(dictfile);
     }
-
 
 }
 
