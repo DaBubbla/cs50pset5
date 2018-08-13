@@ -7,6 +7,10 @@
 #include "dictionary.h"
 #include "speller.c"
 
+//include word count
+int count = 0;
+
+
 
 // Returns true if word is in dictionary else false
 bool check(const char *word)
