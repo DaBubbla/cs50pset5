@@ -14,11 +14,14 @@ children of calling process, or calling process).
 
 TODO: 14 and 2 structs
 
-## Why do you think we pass `before` and `after` by reference (instead of by value) to `calculate`, even though we're not changing their contents?
+## Why do you think we pass `before` and `after` by reference (instead of by value)
+## to `calculate`, even though we're not changing their contents?
 
 TODO
 
-## Explain as precisely as possible, in a paragraph or more, how `main` goes about reading words from a file. In other words, convince us that you indeed understand how that function's `for` loop works.
+## Explain as precisely as possible, in a paragraph or more, how `main`
+## goes about reading words from a file. In other words, convince us that
+## you indeed understand how that function's `for` loop works.
 
 TODO
 

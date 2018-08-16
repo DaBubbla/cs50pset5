@@ -3,7 +3,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#include "check.h"
 #include "dictionary.h"
 #include "speller.c"
 
