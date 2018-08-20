@@ -2,20 +2,30 @@
 
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "dictionary.h"
 #include "speller.c"
+//#include "testsite.h"
 
 //include word count
 int count = 0;
 
 
+/*define the trie*/
+typedef struct node
+{
+    bool isword;
+    struct node *children[27];
+}
+node;
+
+node *root = NULL;
 
 // Returns true if word is in dictionary else false
 bool check(const char *word)
 {
-    // TODO if( word is present in dictionary)
-    //{ return true;} else {false};
     return false;
 }
 
@@ -23,21 +33,40 @@ bool check(const char *word)
 // else false
 bool load(const char *dictionary)
 {
-    char *dictfile = "dictionary.h";
 
     //OPEN INPUT FILE
-    FILE *inptr = fopen(dictfile, "r");
+    FILE *dict_ptr = fopen("cat.txt", "r");
 
-    if (dictfile == NULL)
+    if (dict_ptr == NULL)
     {
-        fprintf(stderr, "Could not open %s.\n", dictfile);
+        fprintf(stderr, "Could not open %p.\n", dict_ptr);
         return false;
-        fclose(dictfile);
+        fclose(dict_ptr);
     }
+
+    for (char letter = fgetc(dict_ptr); letter != EOF; letter++)
+    {
+        node *current;
+        current = malloc(sizeof(node));
+        current = root;
+
+        node *nextnode = malloc(sizeof(node));
+        current->children[letter - 'a'] = nextnode;
+
+        if( letter == '\n')
+        {
+            nextnode->isword = true;
+            current = root;
+            count++;
+        }
+    }
+/*========================================================*/
+return false;
 
 }
 
-// Returns number of words in dictionary if loaded else 0 if not yet loaded
+// Returns number of words in dictionary if loaded else 0 if
+//not yet loaded
 unsigned int size(void)
 {
     // TODO
