@@ -26,6 +26,8 @@ node *root = NULL;
 // Returns true if word is in dictionary else false
 bool check(const char *word)
 {
+    bool word = false;
+    if(int i = 0; i < sizeof(); i++)
     return false;
 }
 
@@ -33,7 +35,7 @@ bool check(const char *word)
 // else false
 bool load(const char *dictionary)
 {
-
+/*========================================================*/
     //OPEN INPUT FILE
     FILE *dict_ptr = fopen("cat.txt", "r");
 
