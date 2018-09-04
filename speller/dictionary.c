@@ -1,5 +1,5 @@
 // Implements a dictionary's functionality
-
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -32,41 +32,40 @@ bool check(const char *word)
 {/*REVIEW SPELLER / CHECK @ 2:14*/
     // POINT TO ROOT
     node *branch = root;
-    // COUNTERS/POSITION-HOLDERS HELP
-    count;
-
-    // for(int i = 0; i < strlen(word) +1; i++)
-    //     {
-    //         if(word[i] == '\0')/*IF ENDING VALUE...*/
-    //         {
-    //             branch->isword = true;/*YOU FOUND A WORD!!*/
-    //             count++;
-    //             break;
-    //         }
-    //         else if (islower(word[i]))/*IF LOWERCASE*/
-    //         {
-    //             i = word[i] - 97; /*LOWER ASCII VALUES GOOD*/
-    //         }
-    //         else if (word[i] == '\'')/*IF THERE IS AN ' */
-    //         {
-    //             i = 26; /*ASCII ' SHALL PASS! */
-    //         }
-
+    int a = 0;
     // ITERATE THROUGH WORD (+1 FOR '\0') - DECLARATIONS HELP
-    for (int i = 0; i < sizeof(word) + 1; i++)
+    for (int b = 0; b < strlen(word) + 1; b++)
     {//IF CURRENT BRANCH POINTS TO ISWORD == TRUE
-        if (current->isword)
+        if (branch->isword == true)
         return true;
+        else
+        return false;
         // UPPERCASE IS ACCEPTABLE
-        if()
+        if(isupper(word[b]))
+        {
+            a = word[b] - 65;
+        }
         //LOWERCASE IS ACCEPTABLE
+        else if (islower(word[b]))
+        {
+            a = word[b] - 97;
+        }
         //'\'' = 26,
+        else if (word[b] == '\'')
+        {
+            a = 26;
+        }
         // IF CURRENT BRANCH OF CHILDREN[X] == NULL
+        if(branch->children[a] == NULL)
+        {
+            return false;
+        }
         //ELSE BRANCH = BRANCH OF CHILDREN[X]
-
+        else
+        {
+            branch = branch->children[a];
+        }
     }
-
-
     return false;
 }
 
@@ -117,18 +116,7 @@ bool load(const char *dictionary)
             {
                 i = 26; /*ASCII ' SHALL PASS! */
             }
-/*ZAMILLA LINKED LIST VERSION
-node *new_node = malloc(sizeof(node));
-if(new_node == NULL)
-{
-    unload();
-    return false;
-}
-else
-{
-    strcpy(new_node->word, word);
-}
-*/
+
             if (branch->children[i] == NULL)
             {/*IF WE HIT ANOTHER/NEXT WORD IN
             THE DICTIONARY, CREATE A NEW NODE FOR IT*/
@@ -168,5 +156,27 @@ unsigned int size(void)
 bool unload(void)
 {
     // TODO
+    node* branch = root;
+    if(branch)
+    {
+        if(root != NULL)
+        {
+            freeNode(root);
+        }
+        return true;
+    }
     return false;
+}
+
+void freeNode(node* branch)
+{
+    for (int i = 0; i < 27; i++)
+    {
+        if(branch->children[i])
+        {
+            freeNode(branch->children[i]);
+        }
+    }
+    free(branch);
+    return;
 }
