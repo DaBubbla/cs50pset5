@@ -1,11 +1,12 @@
 // Implements a dictionary's functionality
 #include <ctype.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "dictionary.h"
-#include "speller.c"
+
 
 /*DEFINE THE TRIE*/
 typedef struct node
@@ -32,38 +33,44 @@ bool check(const char *word)
 {/*REVIEW SPELLER / CHECK @ 2:14*/
     // POINT TO ROOT
     node *branch = root;
-    int a = 0;
+    int i = 0;
     // ITERATE THROUGH WORD (+1 FOR '\0') - DECLARATIONS HELP
-    for (int b = 0; b < strlen(word) + 1; b++)
-    {//IF CURRENT BRANCH POINTS TO ISWORD == TRUE
-        if (branch->isword == true)
-        return true;
-        else
-        return false;
-        // UPPERCASE IS ACCEPTABLE
-        if(isupper(word[b]))
+    int wordLength = strlen(word);
+
+    for (int j = 0; j < wordLength + 1; j++)
+    {
+        if(word[j] == '\0')
         {
-            a = word[b] - 65;
+        if (branch->isword == true)
+            return true;
+        else
+            return false;
+        }
+
+        // UPPERCASE IS ACCEPTABLE
+        if(isupper(word[j]))
+        {
+            i = word[j] - 65;
         }
         //LOWERCASE IS ACCEPTABLE
-        else if (islower(word[b]))
+        else if (islower(word[j]))
         {
-            a = word[b] - 97;
+            i = word[j] - 97;
         }
-        //'\'' = 26,
-        else if (word[b] == '\'')
+        // MAKE ROOM FOR POSSESSION '
+        else if (word[j] == '\'')
         {
-            a = 26;
+            i = 26;
         }
         // IF CURRENT BRANCH OF CHILDREN[X] == NULL
-        if(branch->children[a] == NULL)
+        if(branch->children[i] == NULL)
         {
             return false;
         }
         //ELSE BRANCH = BRANCH OF CHILDREN[X]
         else
         {
-            branch = branch->children[a];
+            branch = branch->children[i];
         }
     }
     return false;
